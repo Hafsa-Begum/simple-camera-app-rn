@@ -15,6 +15,7 @@ import {
   Text,
   useColorScheme,
   View,
+  NativeModules, Button
 } from 'react-native';
 
 import {
@@ -28,9 +29,11 @@ import {
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
-
+console.log("Available Native Modules:", NativeModules);
+const { CameraModule } = NativeModules;
 function Section({children, title}: SectionProps): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+  
   return (
     <View style={styles.sectionContainer}>
       <Text
@@ -61,7 +64,13 @@ function App(): React.JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-
+  const openCamera = () => {
+    if (CameraModule && CameraModule.openCamera) {
+      CameraModule.openCamera();
+    } else {
+      console.error("CameraModule is not available");
+    }
+  };
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -76,10 +85,9 @@ function App(): React.JSX.Element {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Button title="Open Camera" onPress={openCamera} />
+    </View>
           <Section title="See Your Changes">
             <ReloadInstructions />
           </Section>
