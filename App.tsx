@@ -5,8 +5,8 @@
  * @format
  */
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import React, { JSXElementConstructor } from 'react';
+
 import {
   SafeAreaView,
   ScrollView,
@@ -18,52 +18,13 @@ import {
   NativeModules, Button
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
 console.log("Available Native Modules:", NativeModules);
 const { CameraModule } = NativeModules;
-function Section({children, title}: SectionProps): React.JSX.Element {
+
+function App() {
   const isDarkMode = useColorScheme() === 'dark';
+
   
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
   const openCamera = () => {
     if (CameraModule && CameraModule.openCamera) {
       CameraModule.openCamera();
@@ -72,32 +33,22 @@ function App(): React.JSX.Element {
     }
   };
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaView>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
       />
       <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
+        contentInsetAdjustmentBehavior="automatic">
+          
+       
+        <View>
+        <Text>Simple Camera App</Text>
+        <Text>Simple Camera App</Text>
+        <Text>Simple Camera App</Text>
+        <Text>Simple Camera App</Text>
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Button title="Open Camera" onPress={openCamera} />
-    </View>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+            <Button title="Open Camera" onPress={openCamera} />
+          </View> 
         </View>
       </ScrollView>
     </SafeAreaView>
